@@ -30,11 +30,10 @@ export default class extends React.Component{
         let result = null;
         try {
             if(isMovie) {
-                result = await moviesApi.movieDetail(parsedId);
+                ({data: { result }} = await moviesApi.movieDetail(parsedId));
             } else {
-                result = await TVApi.showDetail(parsedId);
+                ({data: { result }} = await TVApi.showDetail(parsedId));
             }
-            console.log(result);
         } catch {
             this.setState({ error: "Can't find anything."})
         } finally {
@@ -44,7 +43,7 @@ export default class extends React.Component{
 
     render() {
         const { result, error, loading } = this.state;
-        console.log(this.props)
+        console.log(this.state)
         return (
             <DetailPresenter result={result} error={error} loading={loading} />
         )
